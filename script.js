@@ -28,7 +28,7 @@ recaptcha.setAttribute('data-callback', 'recaptcha_callback')
 function caesar_encrypt(text, shift) {
   let result = ''
   for (let i=0; i<text.length; i++) {
-    let char = text[i]
+    const char = text[i]
     if (char === char.toUpperCase()) result += String.fromCharCode((char.charCodeAt(0) + shift - 65) % 26 + 65)
     else result += String.fromCharCode((char.charCodeAt(0) + shift - 97) % 26 + 97)
   }
@@ -48,7 +48,24 @@ submitButton.addEventListener('click', () => {
   }
 })
 
-openButton.addEventListener('click', handleOpen)
+function handleImageFile(file) {
+  preview.classList.remove('dash')
+  const img = document.createElement("img");
+  img.classList.add("obj");
+  img.file = file;
+  preview.appendChild(img);
+
+  const reader = new FileReader();
+  reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+  reader.readAsDataURL(file);
+}
+
+async function handleTextFile(file) {
+  preview.classList.remove('dash')
+  const text = await file.text();
+  preview.innerHTML = text;
+}
+
 function handleOpen() {
   preview.innerHTML = ``
   const fileElement = document.getElementById('file').files[0]
@@ -62,24 +79,4 @@ function handleOpen() {
   else if (fileType === 'image' && isActive) handleImageFile(fileElement)
   else document.querySelector('.info').innerHTML = 'Unsupported type'
 }
-
-
-function handleImageFile(file) {
-  preview.classList.remove('dash')
-  let img = document.createElement("img");
-  img.classList.add("obj");
-  img.file = file;
-  preview.appendChild(img);
-
-  let reader = new FileReader();
-  reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-  reader.readAsDataURL(file);
-}
-
-async function handleTextFile(file) {
-  preview.classList.remove('dash')
-  let text = await file.text();
-  preview.innerHTML = text;
-}
-
-
+openButton.addEventListener('click', handleOpen)
