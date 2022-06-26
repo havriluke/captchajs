@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google reCaptcha</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="recaptcha-group">
+            <div class="title solve-title">Solve the captcha</div>
+            <div class="g-recaptcha"></div>
+            <div class="title solve-title">Select the file you want to read</div>
+            <label for="file" class="button">Choose file<input type="file" class="file" id="file"></label>
+            <button class="button disabled" id="open-button" disabled>Open</button>
+            <div class="title key-title">Enter the key to get access to image types</div>
+            <input type="password" class="key">
+            <button class="button disabled" id="submit-button" disabled>Submit</button>
+        </div>
+
+        <div class="preview__container">
+            <div class="title info">Your file</div>
+            <div class="preview dash"></div>
+        </div>
+
+    </div>
+    
+
+
+
+</body>
+</html>
